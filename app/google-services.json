@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "928555312950",
+    "project_id": "timerush-64ff6",
+    "storage_bucket": "timerush-64ff6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928555312950:android:1d26ee0e6962933cc83597",
+        "android_client_info": {
+          "package_name": "com.example.timerush"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS-M-faa7qN-qbhgyTT4U1HordDPb6d1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

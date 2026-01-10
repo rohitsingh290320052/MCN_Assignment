@@ -1,0 +1,43 @@
+package com.example.timerush
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.timerush.navigation.AppNavGraph
+import com.example.timerush.ui.theme.TimeRushTheme
+import com.google.firebase.auth.FirebaseAuth
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val auth = FirebaseAuth.getInstance()
+
+        if (auth.currentUser == null) {
+            auth.signInAnonymously()
+                .addOnSuccessListener {
+                    // User authenticated silently
+                }
+                .addOnFailureListener {
+                    // Handle error (rare)
+                }
+        }
+
+        setContent {
+            MaterialTheme {
+                AppNavGraph()
+            }
+        }
+    }
+
+}
+
