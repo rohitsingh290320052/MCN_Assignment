@@ -13,14 +13,26 @@ import com.example.timerush.utils.StreakPreferences
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-
+import com.example.timerush.data.repository.QuizRepository
+import com.example.timerush.utils.QuizData.questions
 
 
 class GameViewModel(
     private val repository: GameRepository
 ) : ViewModel() {
 
-    private val questions = QuizData.questions
+    private val quizRepository = QuizRepository()
+
+    init {
+        viewModelScope.launch {
+            val fetched = quizRepository.fetchQuestions()
+            if (fetched.isNotEmpty()) {
+                questions = fetched
+                currentQuestion = questions[0]
+            }
+        }
+    }
+
     private var index = 0
     private var isAnswered = false
 
@@ -56,14 +68,20 @@ class GameViewModel(
 
 
 
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun finishGame(context: Context) {
         viewModelScope.launch {
-            StreakPreferences.updateStreak(context)
-            repository.updateRewards(score)
 
+            // Local streak update
+            StreakPreferences.updateStreak(context)
+
+            //  Sync score to Firestore
+            repository.updatePoints(score)
         }
     }
+
 }
 
 

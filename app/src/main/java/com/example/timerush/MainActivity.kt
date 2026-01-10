@@ -25,10 +25,10 @@ class MainActivity : ComponentActivity() {
         if (auth.currentUser == null) {
             auth.signInAnonymously()
                 .addOnSuccessListener {
-                    // User authenticated silently
+
                 }
                 .addOnFailureListener {
-                    // Handle error (rare)
+
                 }
         }
 

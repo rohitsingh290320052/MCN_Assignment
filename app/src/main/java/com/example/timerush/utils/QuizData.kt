@@ -4,7 +4,7 @@ import com.example.timerush.domain.model.QuizQuestion
 
 object QuizData {
 
-    val questions: List<QuizQuestion> = listOf(
+    var questions: List<QuizQuestion> = listOf(
         QuizQuestion(
             question = "What does MVVM stand for?",
             options = listOf(

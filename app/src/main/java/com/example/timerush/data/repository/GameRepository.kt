@@ -1,19 +1,26 @@
 package com.example.timerush.data.repository
-import com.example.timerush.data.local.dao.UserDao
-import com.example.timerush.data.local.entity.UserEntity
 
-class GameRepository(
-    private val userDao: UserDao
-) {
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-    suspend fun updateRewards(points: Int) {
-        val user = userDao.getUser() ?: UserEntity(totalPoints = 0)
+class GameRepository {
 
-        userDao.insert(
-            user.copy(
-                totalPoints = user.totalPoints + points
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+
+    fun updatePoints(pointsEarned: Int) {
+        val uid = auth.currentUser?.uid ?: return
+
+        val userRef = firestore.collection("users").document(uid)
+
+        firestore.runTransaction { transaction ->
+            val snapshot = transaction.get(userRef)
+            val currentPoints = snapshot.getLong("totalPoints") ?: 0
+            transaction.update(
+                userRef,
+                "totalPoints",
+                currentPoints + pointsEarned
             )
-        )
+        }
     }
 }
-

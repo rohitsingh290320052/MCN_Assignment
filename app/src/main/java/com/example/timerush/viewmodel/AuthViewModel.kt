@@ -32,13 +32,11 @@ class AuthViewModel : ViewModel() {
 
                 val user = result.user ?: return@addOnSuccessListener
 
-                // 🔹 Save display name in Auth
                 val profileUpdates = userProfileChangeRequest {
                     displayName = name
                 }
                 user.updateProfile(profileUpdates)
 
-                // 🔹 Save user in Firestore
                 FirebaseFirestore.getInstance()
                     .collection("users")
                     .document(user.uid)

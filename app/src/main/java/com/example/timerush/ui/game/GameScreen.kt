@@ -1,9 +1,13 @@
 package com.example.timerush.ui.game
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -16,79 +20,57 @@ import com.example.timerush.data.repository.GameRepository
 import com.example.timerush.navigation.Screen
 import com.example.timerush.viewmodel.GameViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun GameScreen(navController: NavController) {
 
-    // ✅ Context
     val context = LocalContext.current
-
-    // ✅ Database (temporary MVP setup)
-    val database = remember {
-        Room.databaseBuilder(
-            context.applicationContext,
-            AppDatabase::class.java,
-            "timerush_db"
-        ).build()
-    }
-
-    // ✅ Repository
-    val repository = remember {
-        GameRepository(database.userDao())
-    }
-
-    // ✅ ViewModel with constructor injection
-    val viewModel = remember {
-        GameViewModel(repository)
-    }
-
+    val viewModel = remember { GameViewModel(GameRepository()) }
     val question = viewModel.currentQuestion
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        // ✅ QUIZ CONTENT
-        if (!viewModel.isGameFinished) {
+        Card {
+            Column(Modifier.padding(16.dp)) {
 
-            Text(
-                text = question.question,
-                style = MaterialTheme.typography.titleLarge
-            )
+                if (!viewModel.isGameFinished) {
+                    Text(
+                        question.question,
+                        style = MaterialTheme.typography.titleLarge
+                    )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(Modifier.height(12.dp))
 
-            val options: List<String> = question.options
-            for (option in options) {
-                Button(
-                    onClick = { viewModel.submitAnswer(option) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
-                ) {
-                    Text(option)
+                    question.options.forEach { option ->
+                        OutlinedButton(
+                            onClick = { viewModel.submitAnswer(option) },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(option)
+                        }
+                    }
+                } else {
+                    Text(
+                        "🎉 Game Finished!",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
                 }
             }
-
-        } else {
-
-            Text(
-                text = "Game Finished 🎉",
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Card {
+            Column(Modifier.padding(16.dp)) {
+                AnimatedScore(score = viewModel.score)
+            }
+        }
 
-        // ✅ SCORE (always visible)
-        AnimatedScore(score = viewModel.score)
+        Spacer(Modifier.weight(1f))
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // ✅ FINISH BUTTON
         Button(
             onClick = {
                 viewModel.finishGame(context)
@@ -102,6 +84,7 @@ fun GameScreen(navController: NavController) {
         }
     }
 }
+
 
 @Composable
 fun AnimatedScore(score: Int) {
