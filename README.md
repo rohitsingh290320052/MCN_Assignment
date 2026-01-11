@@ -17,7 +17,7 @@ TimeRush is a Gen-Z focused reward-based mobile application that converts short,
 - Firebase (Auth + Firestore)
 - Room Database for local caching
 
-📄 Detailed architecture diagrams available in `/docs`
+📄 Detailed architecture diagrams available in `/Documentation`
 
 ## 🎥 Demo Video
 👉 [Watch Demo](demo/timerush-demo.mp4)
