@@ -17,6 +17,28 @@ TimeRush is a Gen-Z focused reward-based mobile application that converts short,
 - Firebase (Auth + Firestore)
 - Room Database for local caching
 
+## 📊 Architecture & Design Diagrams
+
+### 🧩 ERD (Entity Relationship Diagram)
+Shows the relationship between core entities such as User, Quiz, Participation, and Reward.
+
+![ERD Diagram](Documentation/ERD.png)
+
+---
+
+### 🔁 DRD (Data Relationship Diagram)
+Illustrates how data flows through the system from UI to backend services.
+
+![DRD Diagram](Documentation/DRD.png)
+
+---
+
+### 🧍 User Journey / Flow Diagram
+Represents the end-to-end journey of a user within the TimeRush application.
+
+![User Flow Diagram](DocumentatioN/user_flow.png)
+
+
 📄 Detailed architecture diagrams available in `/Documentation`
 
 ## 🎥 Demo Video
