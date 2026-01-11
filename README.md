@@ -20,7 +20,7 @@ TimeRush is a Gen-Z focused reward-based mobile application that converts short,
 📄 Detailed architecture diagrams available in `/Documentation`
 
 ## 🎥 Demo Video
-👉 [Watch Demo](demo/timerush-demo.mp4)
+👉 [Watch Demo](https://drive.google.com/file/d/1cop8WDgp78S5rLOV8qJuMXJ4UerDt046/view?usp=sharing)
 
 ## 📂 Project Structure
 - `ui/` → Compose screens
