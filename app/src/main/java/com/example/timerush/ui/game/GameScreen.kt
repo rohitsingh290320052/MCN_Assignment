@@ -73,7 +73,7 @@ fun GameScreen(navController: NavController) {
 
         Button(
             onClick = {
-                viewModel.finishGame(context)
+                viewModel.finishGame()
                 navController.navigate(Screen.Dashboard.route) {
                     popUpTo(Screen.Dashboard.route) { inclusive = true }
                 }

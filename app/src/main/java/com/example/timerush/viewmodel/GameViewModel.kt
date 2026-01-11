@@ -71,16 +71,11 @@ class GameViewModel(
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun finishGame(context: Context) {
-        viewModelScope.launch {
-
-            // Local streak update
-            StreakPreferences.updateStreak(context)
-
-            //  Sync score to Firestore
-            repository.updatePoints(score)
-        }
+    fun finishGame() {
+        repository.completeQuiz(score)
     }
+
+
 
 }
 
