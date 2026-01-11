@@ -36,7 +36,7 @@ Illustrates how data flows through the system from UI to backend services.
 ### 🧍 User Journey / Flow Diagram
 Represents the end-to-end journey of a user within the TimeRush application.
 
-![User Flow Diagram](DocumentatioN/user_flow.png)
+![User Flow Diagram](Documentation/user_flow.png)
 
 
 📄 Detailed architecture diagrams available in `/Documentation`
